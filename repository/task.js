@@ -1,5 +1,6 @@
 const { Task, Type } = require('../models');
 const typeRepository = require('../repository/type');
+const {Op} = require("sequelize");
 
 
 async function createTask(attributes) {
@@ -30,9 +31,18 @@ async function getTaskById(id) {
     return await Task.findByPk(id);
 }
 
-async function getAllTasks(limit, offset, filters) {
+async function getAllTasks(limit, offset, isLate, filters) {
+    let whereQuery = filters
+    if(isLate){
+        whereQuery = {
+            ...filters,
+            dueDate: {
+                [Op.lt]: new Date()
+            }
+        }
+    }
     const tasks = await Task.findAll({
-        where: filters,
+        where: whereQuery,
         limit: limit,
         offset: offset,
         include: {

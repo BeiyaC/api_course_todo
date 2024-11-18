@@ -26,9 +26,9 @@ router.get('/:id', async (req, res) => {
 });
 
 router.get('/', async (req, res) => {
-    const { limit = 50, offset = 0, ...filters } = req.query;
+    const { limit = 50, offset = 0, isLate= false, ...filters } = req.query;
     try {
-        const tasks = await taskRepository.getAllTasks(parseInt(limit), parseInt(offset), filters);
+        const tasks = await taskRepository.getAllTasks(parseInt(limit), parseInt(offset), isLate, filters);
         res.json(tasks);
     } catch (error) {
         await handleErrors.repository(error, res)

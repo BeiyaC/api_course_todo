@@ -90,8 +90,9 @@ This API allows you to manage tasks and types. You can create, read, update, and
     - **URL:** `/tasks`
     - **Method:** `GET`
     - **Query Parameters:**
-        - `limit` (optional)
-        - `offset` (optional)
+        - `limit` (optional) 50 by default
+        - `offset` (optional) 0 by default
+        - `isLate` (optional) false by default
         - `filters` (optional)
     - **Response:**
         ```json
